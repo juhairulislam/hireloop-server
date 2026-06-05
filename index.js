@@ -37,6 +37,7 @@ async function run() {
 
     const database = client.db("hireloop");
     const jobCollection = database.collection("jobs");
+    const companyCollection = database.collection('company')
 
 
     

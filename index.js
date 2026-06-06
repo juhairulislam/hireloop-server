@@ -84,13 +84,15 @@ async function run() {
             res.send(result || {});
         })
 
-     app.post('/api/companies' , async(req, res) =>{
-
-        const company = req.body ;
-        const result = await companyCollection.insertOne(company) ;
-        res.send(result)
-
-    })
+       app.post('/api/companies', async (req, res) => {
+            const company = req.body;
+            const newCompany = {
+                ...company,
+                createdAt: new Date()
+            }
+            const result = await companyCollection.insertOne(newCompany);
+            res.send(result);
+        })
 
 
 

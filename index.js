@@ -39,6 +39,7 @@ async function run() {
     const jobCollection = database.collection("jobs");
     const companyCollection = database.collection('company')
     const usersCollection = database.collection("user");
+      const applicationsCollection = database.collection("applications");
 
     app.get('/api/users', async (req, res) => {
 
@@ -85,7 +86,35 @@ async function run() {
       }
       const result = await jobCollection.insertOne(newJob);
       res.send(result);
-    })
+    }) 
+
+
+
+    // application related apis
+        app.get('/api/applications', async (req, res) => {
+            const query = {};
+            if (req.query.applicantId) {
+                query.applicantId = req.query.applicantId;
+            }
+            if (req.query.jobId) {
+                query.jobId = req.query.jobId;
+            }
+            const cursor = applicationsCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
+        app.post('/api/applications', async (req, res) => {
+            const application = req.body;
+            const newApplication = {
+                ...application,
+                createdAt: new Date()
+            }
+            const result = await applicationsCollection.insertOne(newApplication);
+            res.send(result);
+        })
+
+
 
 
 

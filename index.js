@@ -124,7 +124,7 @@ async function run() {
 
 
     app.get('/api/companies', async (req, res) => {
-      const cursor = companyCollection.find().skip(4);
+      const cursor = companyCollection.find();
       const result = await cursor.toArray();
       res.send(result);
     })
